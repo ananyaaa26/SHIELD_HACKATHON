@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Quattrocento:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>HappyHeadspace.com</title>
+    <style>
+        .quattrocento-regular {
+            font-family: "Quattrocento", serif;
+            font-weight: 400;
+        }
+
+        .quattrocento-bold {
+            font-family: "Quattrocento", serif;
+            font-weight: 700;
+        }
+
+        body {
+            padding-top: 50px;
+            font-family: "Quattrocento", serif;
+            background-color: #f9f9f9;
+            color: #333;
+            height: 100vh; 
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: center;
+            color: #ad87c9;
+        }
+
+        .quiz-subtitle {
+            font-size: 1em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .question {
+            margin: 15px 0;
+        }
+
+        .question label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 8px;
+            font-size: 0.9em;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            background-color: #ad87c9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #946fae;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 1em;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ad87c9;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1em;
+            color: #9f76bc;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .image-container {
+            height: 100%;
+            overflow: hidden; 
+        }
+
+        .image-container img {
+            height: 100%; 
+            width: 100%; 
+            object-fit: cover; 
+            border-radius: 0 10px 10px 0; 
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const questions = [
+            "How often do you feel nervous or anxious?",
+            "Do you feel tired or low on energy regularly?",
+            "Do you have trouble concentrating on tasks?",
+            "Do you feel a sense of panic or fear?",
+            "Do you feel overwhelmed by daily responsibilities?",
+            "Do you have difficulty sleeping?",
+            "Do you find it hard to enjoy activities you used to like?",
+            "Do you feel disconnected from others?",
+            "Do you feel like you lack support from friends or family?"
+        ];
+
+        function Quiz() {
+            const [answers, setAnswers] = React.useState(Array(questions.length).fill(0));
+            const [resultMessage, setResultMessage] = React.useState(null);
+
+            const handleSelectChange = (index, event) => {
+                const newAnswers = [...answers];
+                newAnswers[index] = parseInt(event.target.value);
+                setAnswers(newAnswers);
+            };
+
+            const calculateScore = () => {
+                const totalScore = answers.reduce((acc, curr) => acc + curr, 0);
+                let feedback = "";
+
+                if (totalScore <= 6) {
+                    feedback = "Your score indicates temporary sadness or low stress levels. Try some relaxation techniques.";
+                } else if (totalScore <= 12) {
+                    feedback = "Your score indicates mild stress, likely temporary. Consider activities to relieve stress, like exercise or hobbies.";
+                } else if (totalScore <= 20) {
+                    feedback = "Your score suggests you may be experiencing moderate depression or chronic stress. Professional guidance could be helpful.";
+                } else {
+                    feedback = "Your score indicates significant mental health concerns. It’s strongly recommended to consult a mental health professional.";
+                }
+
+                setResultMessage(`Your total score is: ${totalScore}. ${feedback}`);
+            };
+
+            return (
+                <div className="container-fluid d-flex">
+                    <div className="col-md-6 d-flex justify-content-center align-items-center">
+                        <div className="quiz-container">
+                            <h1 className="quiz-title">Mental Health Check</h1>
+                            <p className="quiz-subtitle">Identify anxiety, depression, and related feelings</p>
+
+                            {questions.map((question, index) => (
+                                <div className="question" key={index}>
+                                    <label>{question}</label>
+                                    <select onChange={(e) => handleSelectChange(index, e)} value={answers[index]}>
+                                        <option value="0">Never</option>
+                                        <option value="1">Sometimes</option>
+                                        <option value="2">Often</option>
+                                        <option value="3">Almost Always</option>
+                                    </select>
+                                </div>
+                            ))}
+                            
+                            <button type="button" onClick={calculateScore}>Submit</button>
+                            {resultMessage && <p className="result">{resultMessage}</p>}
+                            <a href="index.html" className="back-link">Back to Home</a>
+                        </div>
+                    </div>
+                    
+                    <div className="col-md-6 image-container">
+                        <img src="hh13.jpg" alt="Mental Health Image" />
+                    </div>
+                </div>
+            );
+        }
+        ReactDOM.createRoot(document.getElementById('root')).render(<Quiz />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Quattrocento:wght@400;700&display=swap" rel="stylesheet">
+    <title>HappyHeadspace.com</title>
+    <style>
+        .quattrocento-regular {
+            font-family: "Quattrocento", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .quattrocento-bold {
+            font-family: "Quattrocento", serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        body {
+            background-color: white;
+            padding-top: 70px;
+            font-family: "Quattrocento", serif;
+        }
+
+        .navbar {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar-nav .nav-link {
+            color: black;
+            padding: 0 10px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: rgb(33, 29, 29);
+            transform: scale(1.1);
+        }
+
+        .navbar-brand img {
+            max-width: 225px;
+            height: auto;
+        }
+
+        .navbar-buttons {
+            margin-left: auto;
+        }
+
+        .btn-custom {
+            color: #161a2b;
+            background-color: #d1bae2;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            
+        }
+
+        .btn-custom:hover {
+            background-color:#d1bae2;
+        }
+        .content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+
+        .content img {
+            width: 100%;
+            max-width: 600px;
+            object-fit: cover;
+        }
+        .text-container {
+            padding: 20px;
+            font-weight: 500;
+        }
+
+        .text-container h1 {
+            font-size: 3.5rem;
+            font-family: "Quattrocento", serif;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .text-container h2 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #7f8c8d;
+        }
+        .Team{
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        .our-team{
+            margin-top: 50px;
+            text-align: center;
+            background-color:#c4b4cf;
+            padding: 5px;
+            font-family: "Quattrocento", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .team-members {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px;
+    flex-wrap: wrap; 
+}
+
+
+        .team-member {
+            max-width: 300px; 
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 250px;
+            height: 250px;
+            margin-bottom: 10px; 
+           
+        }
+
+        .caption {
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+        .psyc{
+            font-size: 13px;
+            color:#c4b4cf ;
+            margin-top: -18px;
+        }
+        .team-para{
+            margin-left: 110px;
+            margin-right: 110px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+            color:#7f8c8d ;
+        }
+        .Vision-mission {
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .Vision-mission h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .headervision{
+            margin-bottom: 40px;
+            margin-top: 40px;
+        }
+
+        .Vision-mission p {
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+
+        .Vision-mission ul {
+            list-style-type: none; 
+            padding: 0;
+        }
+
+        .Vision-mission ul li {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px; 
+        }
+
+        .Vision-mission ul li::before {
+            content: '\2022';
+            color: #c4b4cf; 
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-left: -1em;
+        }
+        .vision{
+            margin-top: 30px;
+        }
+        .footer {
+            background-color: rgb(23, 22, 22);
+            color: #ecf0f1;
+            padding: 40px 0;
+            margin: 0;
+            margin-left: -115px;
+            margin-right: -110px;
+        }
+
+        .footer h5 {
+            color: #f7f7f7;
+            margin-bottom: 20px;
+        }
+
+        .footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+
+        .footer .list-unstyled {
+            padding-left: 0;
+        }     
+</style>
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="HappyHeadspace2.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">
+                            <i class="bi bi-house"></i> Home
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-briefcase"></i> Services
+                        </a>
+                    </li> -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-envelope"></i> Contact Us
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="write-to-us.html">Write to us</a></li>
+                         
+                            <li><a class="dropdown-item" href="join-us.html">Join our team</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-journal"></i> Resources
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="blogs.html">Blogs</a></li>
+                            <li><a class="dropdown-item" href="crisis-support.html">Crisis Support</a></li>
+                          
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle"></i> About Us
+                        </a>
+                    </li>
+                </ul>
+                <div class="navbar-buttons d-flex">
+                    <a href="login.html" class="btn btn-custom me-2">Login</a>
+                    <a href="sign-up.html" class="btn btn-custom">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+</header>
+
+<body>
+    <div class="container">
+        <div class="content row">
+            <div class="col-lg-6 col-12 order-lg-1 order-2">
+                <img src="about.jpeg" alt="Main Image" class="img-fluid">
+            </div>
+            <div class="col-lg-6 col-12 order-lg-2 order-1">
+                
+                <div class="text-container">
+                    <h1>About Us</h1><br>
+                    <h2>At HappyHeadspace, we believe in the power of a healthy mind. Discover evidence-based treatments, insightful articles, and a compassionate team dedicated to your well-being.</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="Team">
+            <div class="our-team">
+                <h2>Meet Our Team</h2>
+            </div>
+            <div class="team-members">
+                <div class="team-member text-center">
+                    <img src="arsh.jpeg" alt="Team Member 1" class="img-fluid">
+                    <p class="caption">Arshpal Singh</p>
+                    <p class="psyc">Psychologist</p>
+                </div>
+                <div class="team-member text-center">
+                    <img src="ananya.jpeg" alt="Team Member 2" class="img-fluid">
+                    <p class="caption">Ananya Tuli</p>
+                    <p class="psyc">Psychologist</p>
+                </div>
+                <div class="team-member text-center">
+                    <img src="patient.JPG" alt="Team Member 3" class="img-fluid">
+                    <p class="caption">Abha Vashisht</p>
+                    <p class="psyc">Psychologist</p>
+                </div>
+                <div class="team-member text-center">
+                    <img src="doctor.jpg" alt="Team Member 4" class="img-fluid">
+                    <p class="caption">Aanchal Jha</p>
+                    <p class="psyc">Psychologist</p>
+                </div>
+            </div>
+            <div class="team-para">
+            <p>Our team is made up of dedicated mental health professionals, including therapists, counselors, and psychologists, who are passionate about helping others. We are committed to providing evidence-based, high-quality care that is tailored to the unique needs of each individual. We understand that everyone's journey is different, and we strive to create a personalized experience that fosters growth and healing.</p>
+        </div>
+        </div>
+
+        <div class="Vision-mission">
+            <div class="Vision-mission container">
+                <div class="headervision">
+                    <h1 class="our-team">Vision & Mission</h1>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-12">
+                        <h2 style="margin-bottom: 30px;" class="vision">Our Vision</h2>
+                        <img src="vision4.jpeg" alt="Vision Image" class="img-fluid mb-3" style="width:390px; height: 290px; margin-left: 10px;">
+                        
+                        <p>At HappyHeadspace, our vision is to create a world where mental health is as valued and supported as physical health, where individuals can thrive and reach their full potential. We envision a future free from stigma, where seeking help for mental health is seen as a sign of strength and resilience. Our goal is to foster a culture of understanding, compassion, and acceptance, where everyone has access to the support they need to lead fulfilling and meaningful lives.</p>
+                    </div>
+        
+                    <div class="col-lg-6 col-md-12">
+                        <h2 style="margin-bottom: 30px; margin-top: 20px;" class="mission">Our Mission</h2>
+                        <ul>
+                            <li><b>Accessibility:</b> Make mental health resources available to everyone, regardless of location, income, or background.</li>
+                            <li><b>Evidence-Based Care:</b> Provide high-quality, evidence-based treatments and interventions.</li>
+                            <li><b>Education:</b> Educate the public about mental health, its importance, and the available resources.</li>
+                            <li><b>Prevention:</b> Focus on prevention and early intervention to address mental health issues before they escalate.</li>
+                            <li><b>Personalized Care:</b> Tailor treatments and support to the unique needs and preferences of each individual.</li>
+                            <li><b>Professional Expertise:</b> Provide access to qualified mental health professionals who are trained and experienced in various therapeutic approaches.</li>
+                            <li><b>Comprehensive Care:</b> Offer a wide range of services, including therapy, medication management, and support groups, to address the diverse needs of individuals seeking mental health improvement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<footer class="footer mt-5">
+    <div class="container">
+        <div class="row text-center text-md-start justify-content-center">
+            <div class="col-md-2">
+                <h5>About</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Help</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Resources</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Mental Health Guide</a></li>
+                    <li><a href="#">Crisis Support</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Therapist Directory</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="bi bi-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center mt-4">
+            <p>©HappyHeadspace 2024</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="#">Terms of Use</a></li>
+                <li class="list-inline-item"><a href="#">Your Privacy Choices</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</html>

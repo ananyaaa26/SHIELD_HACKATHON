@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Quattrocento:wght@400;700&display=swap"
+        rel="stylesheet">
+    <title>HappyHeadspace.com</title>
+    <style>
+        .quattrocento-regular {
+            font-family: "Quattrocento", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .quattrocento-bold {
+            font-family: "Quattrocento", serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .status-btn {
+        padding: 5px 10px;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+    .discard-btn {
+        padding: 5px 10px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        background-color: gray;
+        transition: background-color 0.5s ease;
+    }
+    .discard-btn:hover {
+        background-color: darkgray;
+    }
+    .appointment-item {
+        margin-bottom: 15px;
+    }
+    
+    .pending {
+        background-color: red;
+    }
+    .completed {
+        background-color: green;
+    }
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            background-color: white;
+            padding-top: 70px;
+            margin-bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            font-family: "Quattrocento", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .navbar {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar-nav .nav-link {
+            color: black;
+            padding: 0 10px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: rgb(33, 29, 29);
+            transform: scale(1.1);
+        }
+
+        .navbar-brand img {
+            max-width: 225px;
+            height: auto;
+        }
+
+        .navbar-buttons {
+            margin-left: auto;
+        }
+
+        .btn-custom {
+            color: #161a2b;
+            background-color: #c4b4cf;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1rem;
+
+        }
+
+        .btn-custom:hover {
+            background-color: #d1bae2;
+        }
+
+        .footer {
+            background-color: rgb(23, 22, 22);
+            color: #ecf0f1;
+            padding: 40px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer h5 {
+            color: #f7f7f7;
+            margin-bottom: 20px;
+        }
+
+        .footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+
+        .footer .list-unstyled {
+            padding-left: 0;
+        }
+
+        .sections-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            gap: 100px;
+            flex: 1;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .patient,
+        .general-health,
+        .appointments {
+            flex: 1;
+            max-width: 300px;
+        }
+
+
+        .patient {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 20px;
+            margin-left: -10px;
+            margin-top: 20px;
+            width: 600px;
+        }
+
+
+        .patient-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .patient-image-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .patient-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .patient-details {
+            color: #333;
+        }
+
+        .patient-details h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .patient-id {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .patient-info {
+            font-size: 14px;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .patient-info p {
+            margin: 0;
+        }
+
+        .patient-info strong {
+            color: #555;
+        }
+
+
+        .general-health {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -30px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+
+
+        .general-health-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+
+        }
+
+        .health-status {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+
+        .health-item {
+            text-align: center;
+        }
+
+
+        .health-item p {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+
+        .appointments {
+            display: flex;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .appointments-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .appointments-card h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .appointment-item {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .appointment-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .appointment-item p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .appointment-item strong {
+            color: #333;
+        }
+
+        .section-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            margin-left: 140px;
+            margin-right: 140px;
+
+        }
+
+
+        .medical-records,
+        .medical-bills,
+        .medications {
+            flex: 1;
+            min-width: 200px;
+            max-width: 33%;
+            background-color: white;
+            padding: 20px;
+            width: 200px;
+        }
+
+
+        .medical-records-card,
+        .medical-bills-card,
+        .medications-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 370px;
+            padding: 20px;
+            text-align: center;
+
+        }
+
+
+        .records-table,
+        .bills-table,
+        .medications-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .records-table th,
+        .bills-table th,
+        .medications-table th,
+        .records-table td,
+        .bills-table td,
+        .medications-table td {
+            padding: 10px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .records-table th,
+        .bills-table th,
+        .medications-table th {
+            background-color: #c4b4cf;
+            font-weight: bold;
+        }
+
+        .records-table td,
+        .bills-table td,
+        .medications-table td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .medications {
+            margin-top: -110px;
+        }
+
+        .medical-bills,
+        .medical-records {
+            margin-top: -40px;
+        }
+
+        .bi-person {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<header>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="HappyHeadspace2.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">
+                            <i class="bi bi-house"></i> Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-envelope"></i> Contact Us
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="write-to-us.html">Write to us</a></li>
+                     
+                            <li><a class="dropdown-item" href="join-us.html">Join our team</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-journal"></i> Resources
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="blogs.html">Blogs</a></li>
+                            <li><a class="dropdown-item" href="crisis-support.html">Crisis Support</a></li>
+                           
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle"></i> About Us
+                        </a>
+                    </li>
+                </ul>
+                <div class="navbar-buttons d-flex">
+                    <a href="booking.html" class="btn btn-custom me">Book an appointment</a>
+
+                </div>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person"></i>
+                        </a>
+
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">My Feedback</a></li>
+                            <li><a class="dropdown-item" href="#">My Appointments</a></li>
+                            <li><a class="dropdown-item" href="#">My History</a></li>
+                            <li><a class="dropdown-item" href="#">My Medical Records</a></li>
+                            <li><a class="dropdown-item" href="#">View/Update Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+<body>
+    <div class="sections-container">
+        <section class="patient">
+            <div class="patient-card">
+                <div class="patient-image-container">
+                    <img src="doctor.jpg" alt="Patient Image" class="patient-image">
+                </div>
+                <div class="patient-details">
+                    <h2>Aanchal Jha</h2>
+                    <p class="patient-id">7009-156-4588</p>
+                    <div class="patient-info">
+                        <p><strong>Specialization:</strong> Psychiatry</p>
+                        <p><strong>Experience:</strong> 15 years</p>
+                        <p><strong>Contact:</strong> aanchal.jha@example.com</p>
+                        <p><strong>Location:</strong> HappyHeadspace Clinic, City</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="general-health">
+            <div class="medications-card">
+                <h3>Patient History</h3>
+                <table class="medications-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Patient</th>
+                            <th>Details</th>
+                            <th>Medical Conditions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-08-20</td>
+                            <td>Alice Williams</td>
+                            <td>Routine Checkup</td>
+                            <td>Schizophrenia</td>
+                        </tr>
+                        <tr>
+                            <td>2024-08-21</td>
+                            <td>Bob Brown</td>
+                            <td>Follow-up on Treatment</td>
+                            <td>Bipolar Disorder</td>
+                        </tr>
+                        <tr>
+                            <td>2024-08-21</td>
+                            <td>Bob Brown</td>
+                            <td>Follow-up on Treatment</td>
+                            <td>Anxiety Disorders</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="appointments">
+            <div class="appointments-card">
+                <div id="pendingAppointmentsList">
+                <h3>Upcoming Appointments</h3>
+                
+            </div></div>
+        </section>
+    </div>
+    <div class="section-container">
+        <section class="medical-records">
+            <div class="medical-records-card">
+                <h3>Appointment Requests</h3>
+                <table class="records-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Patient</th>
+                            <th>Request</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-08-22</td>
+                            <td>Emily Davis</td>
+                            <td>Consultation for Anxiety</td>
+                        </tr>
+                        <tr>
+                            <td>2024-08-23</td>
+                            <td>Michael Lee</td>
+                            <td>Follow-up on Medication</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="medications">
+            <div class="medications-card">
+                <h3>Analytics and Reports</h3>
+                <table class="medications-table">
+                    <thead>
+                        <tr>
+                            <th>Report Type</th>
+                            <th>Description</th>
+                            <th>Frequency</th>
+                            <th>Last Generated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Patient Visits</td>
+                            <td>Summary of patient visits for the month</td>
+                            <td>Monthly</td>
+                            <td>August 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Treatment Outcomes</td>
+                            <td>Analysis of treatment success rates</td>
+                            <td>Quarterly</td>
+                            <td>July 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Financial Report</td>
+                            <td>Overview of practice's financial performance</td>
+                            <td>Monthly</td>
+                            <td>August 2024</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="medical-bills">
+            <div class="medical-bills-card">
+                <h3>Emergency Contacts</h3>
+                <table class="bills-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Relationship</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>Spouse</td>
+                            <td>(123) 456-7890</td>
+                            <td>123 Main St, Anytown, USA</td>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>Parent</td>
+                            <td>(234) 567-8901</td>
+                            <td>456 Elm St, Anytown, USA
+                </table>
+            </div>
+        </section>
+
+
+    </div>
+
+    <script src="doctor-dashboard.js">
+        
+    </script>
+</body>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="row text-center text-md-start justify-content-center">
+            <div class="col-md-2">
+                <h5>About</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Help</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Resources</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Mental Health Guide</a></li>
+                    <li><a href="#">Crisis Support</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Therapist Directory</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="bi bi-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center mt-4">
+            <p>©HappyHeadspace 2024</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="#">Terms of Use</a></li>
+                <li class="list-inline-item"><a href="#">Your Privacy Choices</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Quattrocento:wght@400;700&display=swap" rel="stylesheet">
+    <title>Doctor Appointment Booking</title>
+    <style>
+        
+        /* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(-50px);
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.close {
+    color: #888;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.modal-content h2 {
+    font-family: "League Spartan", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.modal-content p {
+    font-family: "Quattrocento", serif;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+button.btn-purple {
+    margin-top: 15px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #8e44ad;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-purple:hover {
+    background-color: #732d91;
+}
+
+@media (max-width: 576px) {
+    .modal-content {
+        width: 90%;
+    }
+
+    .modal-content h2 {
+        font-size: 20px;
+    }
+
+    .modal-content p {
+        font-size: 14px;
+    }
+}
+
+
+        body {
+            background-color: white;
+            padding-top: 70px;
+            font-family: "Quattrocento", serif;
+        }
+
+      
+        .navbar {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar-nav .nav-link {
+            color: black;
+            padding: 0 10px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: rgb(33, 29, 29);
+            transform: scale(1.1);
+        }
+
+        .navbar-brand img {
+            max-width: 225px;
+        }
+
+      
+        .btn-custom {
+            color: #161a2b;
+            background-color: #d1bae2;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        .btn-custom:hover {
+            background-color: #c6add9;
+        }
+
+        .btn-purple {
+            background-color: #b185d7;
+            color: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+
+        .btn-outline-secondary a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .cart-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #D7C3F1;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .payment-section {
+            display: none;
+        }
+
+        
+        .footer {
+            background-color: rgb(23, 22, 22);
+            color: #ecf0f1;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        .footer h5 {
+            color: #f7f7f7;
+            margin-bottom: 20px;
+        }
+
+        .footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="HappyHeadspace2.png" alt="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">
+                                <i class="bi bi-house"></i> Home
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-briefcase"></i> Services
+                            </a>
+                        </li> -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-envelope"></i> Contact Us
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="write-to-us.html">Write to us</a></li>
+                             
+                                <li><a class="dropdown-item" href="join-us.html">Join our team</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-journal"></i> Resources
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="blogs.html">Blogs</a></li>
+                                <li><a class="dropdown-item" href="crisis-support.html">Crisis Support</a></li>
+                              
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">
+                                <i class="bi bi-info-circle"></i> About Us
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="navbar-buttons d-flex">
+                        <a href="login.html" class="btn btn-custom me-2">Login</a>
+                        <a href="sign-up.html" class="btn btn-custom">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+<div class="cart-container">
+    <h2 class="text-center mb-4">Therapy Session Cart</h2>
+
+    <div id="cart-items"></div>
+
+    <hr>
+
+    <div class="d-flex justify-content-between mb-3">
+        <span class="fw-bold">Subtotal</span>
+        <span id="subtotal">₹0</span>
+    </div>
+
+    <div class="d-flex justify-content-between mb-4">
+        <span class="fw-bold">Total</span>
+        <span id="total">₹0</span>
+    </div>
+
+    <button class="btn btn-purple w-100 mb-2" id="proceed-payment">Proceed to Payment</button>
+    <button class="btn btn-outline-secondary w-100">
+        <a href="patient-dashboard.html">Back to Dashboard</a>
+    </button>
+
+    <div class="payment-section" id="payment-section">
+        <h4 class="mb-3">Choose Payment Method</h4>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#card-payment">
+                    Debit/Credit Card
+                </button>
+            </li>
+            <li class="nav-item">
+                <button  class="nav-link" data-bs-toggle="tab" data-bs-target="#upi-payment">
+                    UPI Payment
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="card-payment">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Card Number</label>
+                        <input type="text" class="form-control" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    <button type="submit" id="pay-1000" class="btn btn-purple w-100">Pay ₹999</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="upi-payment">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">UPI ID</label>
+                        <input type="text" class="form-control" placeholder="example@upi" required>
+                    </div>
+                    <button  id="pay-1000" type="submit" class="btn btn-purple w-100">Pay ₹999</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="billModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="billContent">
+            <h2>Generating Bill...</h2>
+        </div>
+    </div>
+</div>
+
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+            const lastBooking = JSON.parse(localStorage.getItem('lastBooking'));
+            const cartItemsDiv = document.getElementById('cart-items');
+            const subtotalSpan = document.getElementById('subtotal');
+            const totalSpan = document.getElementById('total');
+
+            if (lastBooking) {
+                // Display booking details
+                cartItemsDiv.innerHTML = `
+                <div class="mb-3">
+                    <h5>Name: ${lastBooking.name}</h5>
+                    <p>Email: ${lastBooking.email}</p>
+                    <p>Contact: ${lastBooking.phone}</p>
+                    <p>Date: ${lastBooking.date}</p>
+                    <p>Scheduled time: ${lastBooking.time}</p>
+                </div>`;
+
+                // Set price for the appointment
+                const price = lastBooking.fees || 0;
+                subtotalSpan.textContent = `₹${price}`;
+                totalSpan.textContent = `₹${price}`;
+            } else {
+                cartItemsDiv.innerHTML = '<p>No booking information found.</p>';
+            }
+        });
+ // Show the payment section when proceeding to payment
+ document.getElementById('proceed-payment').addEventListener('click', () => {
+            document.getElementById('payment-section').style.display = 'block';
+            document.getElementById('proceed-payment').style.display = 'none';
+        });
+
+        
+    document.addEventListener('DOMContentLoaded', () => {
+        // References to input fields, payment button, and modal
+        const cardNumberInput = document.querySelector('#card-payment input[type="text"]');
+        const upiIdInput = document.querySelector('#upi-payment input[type="text"]');
+        const payButton = document.getElementById('pay-1000');
+        const modal = document.getElementById('billModal');
+        const billContent = document.getElementById('billContent');
+
+        // Function to toggle button state based on input values
+        function togglePayButton() {
+            const cardTabActive = document.querySelector('#card-payment').classList.contains('active');
+            const upiTabActive = document.querySelector('#upi-payment').classList.contains('active');
+            
+            if ((cardTabActive && cardNumberInput.value.trim() !== '') || 
+                (upiTabActive && upiIdInput.value.trim() !== '')) {
+                payButton.disabled = false;
+            } else {
+                payButton.disabled = true;
+            }
+        }
+        
+        // Attach event listeners to detect changes in input and toggle button state
+        cardNumberInput.addEventListener('input', togglePayButton);
+        upiIdInput.addEventListener('input', togglePayButton);
+
+        // Toggle button when switching tabs
+        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', togglePayButton);
+        });
+
+        // Initial button state on page load
+        togglePayButton();
+
+        // Show modal when the pay button is clicked
+        payButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent form submission
+
+            // Display modal if button is enabled
+            if (!payButton.disabled) {
+                modal.style.display = 'flex';
+                billContent.innerHTML = '<h2>Generating Bill...</h2>';
+
+                // Close modal when clicking the close button
+                const closeBtn = document.getElementsByClassName('close')[0];
+                closeBtn.onclick = () => {
+                    modal.style.display = 'none';
+                }
+
+                // Close modal when clicking outside it
+                window.onclick = (event) => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                }
+
+                // Generate bill details after a delay
+                setTimeout(() => {
+                    const lastBooking = JSON.parse(localStorage.getItem('lastBooking'));
+                    if (lastBooking) {
+                        billContent.innerHTML = `
+                            <h2>Appointment Confirmed</h2>
+                            <p><strong>Name:</strong> ${lastBooking.name}</p>
+                            <p><strong>Email:</strong> ${lastBooking.email}</p>
+                            <p><strong>Contact:</strong> ${lastBooking.phone}</p>
+                            <p><strong>Date:</strong> ${lastBooking.date}</p>
+                            <p><strong>Scheduled time:</strong> ${lastBooking.time}</p>
+                            <p><strong>Payment Status:</strong> Paid</p>
+                        `;
+                    } else {
+                        billContent.innerHTML = '<p>No booking information found.</p>';
+                    }
+                }, 2000);
+            }
+        });
+    });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+        // References to input fields and payment button
+        const cardNumberInput = document.querySelector('#card-payment input[type="text"]');
+        const upiIdInput = document.querySelector('#upi-payment input[type="text"]');
+        const payButton = document.getElementById('pay-1000');
+        
+        // Function to toggle button state based on input values
+        function togglePayButton() {
+            const cardTabActive = document.querySelector('#card-payment').classList.contains('active');
+            const upiTabActive = document.querySelector('#upi-payment').classList.contains('active');
+            
+            if ((cardTabActive && cardNumberInput.value.trim() !== '') || 
+                (upiTabActive && upiIdInput.value.trim() !== '')) {
+                payButton.disabled = false;
+            } else {
+                payButton.disabled = true;
+            }
+        }
+        
+        // Attach event listeners to detect changes in input
+        cardNumberInput.addEventListener('input', togglePayButton);
+        upiIdInput.addEventListener('input', togglePayButton);
+        
+        // Toggle button when switching tabs
+        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', togglePayButton);
+        });
+        
+        // Initial state of the pay button on load
+        togglePayButton();
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+<footer class="footer mt-5">
+    <div class="container">
+        <div class="row text-center text-md-start justify-content-center">
+            <div class="col-md-2">
+                <h5>About</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Help</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Resources</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Mental Health Guide</a></li>
+                    <li><a href="#">Crisis Support</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Therapist Directory</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="bi bi-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center mt-4">
+            <p>©HappyHeadspace 2024</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="#">Terms of Use</a></li>
+                <li class="list-inline-item"><a href="#">Your Privacy Choices</a></li>
+            </ul>
+        </div>
+    </div>
+  </footer>
+  </html>
+  
